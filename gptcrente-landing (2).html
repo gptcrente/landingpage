@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>GPT Crente – Aproxime-se de Deus. Todo dia.</title>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,500;0,600;0,700;1,400;1,600&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet"/>
+  <style>
+    :root{
+      --bg:#0b0d14;--bg2:#0f1220;--card:#161c2e;
+      --border:rgba(255,255,255,0.07);
+      --text:#dce0f0;--muted:#6b75a0;
+      --gold:#c9a96e;--gold2:#e8c97a;
+      --purple:#7b6ef6;--blue:#5ea4f3;--white:#fff;
+    }
+    *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+
+    /* ─ NAV ─ */
+    nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:.9rem 1.6rem;background:rgba(11,13,20,0.88);backdrop-filter:blur(20px);border-bottom:1px solid var(--border)}
+    .nav-logo{display:flex;align-items:center;gap:.55rem;text-decoration:none}
+    .logo-icon{width:32px;height:32px;border-radius:9px;background:linear-gradient(135deg,#8a7aff,#5ea4f3);display:flex;align-items:center;justify-content:center;font-size:.9rem;color:#fff;font-weight:800}
+    .logo-text{font-family:'Lora',serif;font-size:1rem;font-weight:700;color:#fff}
+    .logo-text em{color:var(--gold);font-style:italic;font-weight:500}
+    .btn-nav{padding:.52rem 1.3rem;background:linear-gradient(135deg,var(--purple),var(--blue));color:#fff;font-size:.82rem;font-weight:700;text-decoration:none;border-radius:8px;letter-spacing:.01em}
+
+    /* ─ HERO ─ */
+    #hero{min-height:100svh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:8rem 1.6rem 5rem;position:relative;overflow:hidden}
+    .hero-glow{position:absolute;inset:0;background:radial-gradient(ellipse 90% 55% at 50% 20%,rgba(123,110,246,0.16) 0%,transparent 65%);pointer-events:none}
+    .hero-glow2{position:absolute;bottom:-120px;left:50%;transform:translateX(-50%);width:600px;height:300px;background:radial-gradient(ellipse,rgba(201,169,110,0.07) 0%,transparent 70%);pointer-events:none}
+    .hero-inner{position:relative;z-index:1;max-width:520px}
+    .app-icon{width:84px;height:84px;border-radius:22px;margin:0 auto 1.8rem;background:linear-gradient(135deg,#9a8aff,#5ea4f3);display:flex;align-items:center;justify-content:center;font-size:2.3rem;color:#fff;box-shadow:0 10px 60px rgba(123,110,246,0.55);animation:float 4s ease-in-out infinite}
+    @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+    .hero-inner h1{font-family:'Lora',serif;font-size:clamp(2.2rem,8vw,3.8rem);font-weight:700;line-height:1.13;color:#fff;margin-bottom:.9rem}
+    .hero-inner h1 em{color:var(--gold);font-style:italic}
+    .hero-tagline{font-size:1rem;color:var(--muted);line-height:1.65;margin-bottom:2.2rem;max-width:380px;margin-left:auto;margin-right:auto}
+    .btn-hero{display:inline-flex;align-items:center;justify-content:center;gap:.45rem;padding:1rem 2.2rem;border-radius:12px;background:linear-gradient(135deg,var(--purple),var(--blue));color:#fff;font-size:1rem;font-weight:700;text-decoration:none;box-shadow:0 6px 32px rgba(123,110,246,0.5);transition:transform .2s,box-shadow .2s;width:100%}
+    .btn-hero:hover{transform:translateY(-2px);box-shadow:0 10px 40px rgba(123,110,246,0.65)}
+    .hero-note{font-size:.78rem;color:var(--muted);margin-top:.8rem}
+    .hero-social{display:flex;align-items:center;justify-content:center;gap:1.2rem;margin-top:2.4rem}
+    .social-pill{display:flex;align-items:center;gap:.45rem;font-size:.8rem;color:var(--muted)}
+    .social-stars{color:var(--gold);font-size:.9rem;letter-spacing:.05em}
+    .social-divider{width:1px;height:24px;background:var(--border)}
+
+    /* ─ MARQUEE ─ */
+    #marquee{padding:.9rem 0;overflow:hidden;border-top:1px solid var(--border);border-bottom:1px solid var(--border);background:rgba(201,169,110,0.03)}
+    .mq-track{display:flex;gap:2.5rem;width:max-content;animation:mq 28s linear infinite}
+    @keyframes mq{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+    .mq-item{font-family:'Lora',serif;font-style:italic;font-size:.8rem;color:var(--muted);white-space:nowrap;display:flex;align-items:center;gap:.55rem}
+    .mq-item::before{content:'✦';color:var(--gold);font-size:.5rem;font-style:normal}
+    .mq-ref{color:var(--gold);font-style:normal;font-family:'DM Sans',sans-serif;font-size:.7rem;letter-spacing:.04em}
+
+    /* ─ BENEFIT STRIP ─ */
+    #benefits{padding:3.5rem 1.6rem;background:var(--bg2)}
+    .benefits-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;max-width:480px;margin:0 auto}
+    .benefit-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:1.4rem 1.2rem;text-align:center}
+    .benefit-emoji{font-size:2rem;margin-bottom:.6rem;display:block}
+    .benefit-card h3{font-family:'Lora',serif;font-size:.95rem;font-weight:600;color:#fff;margin-bottom:.3rem;line-height:1.3}
+    .benefit-card p{font-size:.8rem;color:var(--muted);line-height:1.55}
+
+    /* ─ HOOK ─ */
+    #hook{padding:5rem 1.6rem;text-align:center}
+    .hook-label{font-size:.7rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--purple);margin-bottom:.9rem;display:block}
+    #hook h2{font-family:'Lora',serif;font-size:clamp(1.8rem,6vw,2.8rem);font-weight:700;color:#fff;line-height:1.2;max-width:480px;margin:0 auto 1.2rem}
+    #hook h2 em{color:var(--gold);font-style:italic}
+    #hook p{font-size:.95rem;color:var(--muted);line-height:1.75;max-width:420px;margin:0 auto 2rem}
+    .verse-card{background:rgba(201,169,110,0.06);border:1px solid rgba(201,169,110,0.2);border-radius:14px;padding:1.4rem;max-width:420px;margin:0 auto}
+    .verse-card blockquote{font-family:'Lora',serif;font-style:italic;font-size:1rem;color:var(--gold2);line-height:1.65;margin-bottom:.35rem}
+    .verse-card cite{font-size:.72rem;color:var(--muted);letter-spacing:.05em}
+
+    /* ─ LEVELS ─ */
+    #levels{padding:5rem 0;background:var(--bg2)}
+    .levels-head{text-align:center;padding:0 1.6rem;margin-bottom:2rem}
+    .section-label{font-size:.7rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--purple);margin-bottom:.7rem;display:block}
+    #levels h2{font-family:'Lora',serif;font-size:clamp(1.7rem,6vw,2.6rem);font-weight:700;color:#fff;line-height:1.2}
+    #levels h2 em{color:var(--gold);font-style:italic}
+    .ltabs-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;padding:0 1.6rem 1rem;scrollbar-width:none}
+    .ltabs-wrap::-webkit-scrollbar{display:none}
+    .ltabs{display:flex;gap:.5rem;min-width:max-content}
+    .ltab{padding:.65rem 1.1rem;border-radius:10px;background:var(--card);border:1px solid var(--border);cursor:pointer;font-family:'DM Sans',sans-serif;white-space:nowrap;transition:all .2s;display:flex;flex-direction:column;gap:.15rem;align-items:center}
+    .ltab-num{font-size:.58rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+    .ltab-name{font-size:.83rem;font-weight:700;color:var(--text)}
+    .ltab.active{background:linear-gradient(135deg,rgba(123,110,246,.2),rgba(94,164,243,.1));border-color:rgba(123,110,246,.5)}
+    .ltab.active .ltab-num{color:var(--purple)}
+    .ltab.active .ltab-name{color:#fff}
+    .ltab-kids.active{background:linear-gradient(135deg,rgba(94,164,243,.18),rgba(201,169,110,.08));border-color:rgba(94,164,243,.4)}
+    .ltab-kids.active .ltab-num{color:var(--blue)}
+    .lpanels{padding:0 1.6rem}
+    .lpanel{display:none;animation:pin .3s ease}
+    .lpanel.active{display:flex;flex-direction:column;gap:1rem}
+    @keyframes pin{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+    .lpanel-hero{background:var(--card);border:1px solid rgba(160,130,255,0.15);border-radius:16px;padding:1.6rem;display:flex;gap:1rem;align-items:flex-start}
+    .lpanel-hero.kids-bg{background:linear-gradient(135deg,rgba(94,164,243,.08),rgba(201,169,110,.05));border-color:rgba(94,164,243,.2)}
+    .lp-emoji{font-size:2.6rem;line-height:1;flex-shrink:0}
+    .lp-text h3{font-family:'Lora',serif;font-size:1.05rem;font-weight:700;color:#fff;line-height:1.3;margin-bottom:.35rem}
+    .lp-text p{font-size:.85rem;color:var(--muted);line-height:1.6}
+    .lp-cards{display:grid;grid-template-columns:1fr 1fr;gap:.9rem}
+    .lp-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:1.2rem}
+    .lp-card.kids{border-color:rgba(94,164,243,.18)}
+    .lp-card-icon{font-size:1.5rem;margin-bottom:.65rem}
+    .lp-card h4{font-family:'Lora',serif;font-size:.88rem;font-weight:700;color:#fff;margin-bottom:.35rem;line-height:1.3}
+    .lp-card p{font-size:.8rem;color:var(--muted);line-height:1.55;margin-bottom:.5rem}
+    .lp-verse{font-family:'Lora',serif;font-style:italic;font-size:.73rem;color:var(--gold);opacity:.85}
+
+    /* ─ SOCIAL PROOF ─ */
+    #social{padding:5rem 1.6rem;background:var(--bg);text-align:center}
+    #social h2{font-family:'Lora',serif;font-size:clamp(1.7rem,6vw,2.6rem);font-weight:700;color:#fff;line-height:1.2;margin-bottom:.6rem}
+    #social h2 em{color:var(--gold);font-style:italic}
+    .stats-row{display:flex;justify-content:center;gap:2.5rem;margin:2.2rem 0 2.8rem;flex-wrap:wrap}
+    .stat-item{text-align:center}
+    .stat-num{font-family:'Lora',serif;font-size:2rem;font-weight:700;color:#fff;line-height:1}
+    .stat-label{font-size:.75rem;color:var(--muted);margin-top:.25rem;letter-spacing:.03em}
+    .testi-stack{display:flex;flex-direction:column;gap:.9rem;max-width:480px;margin:0 auto}
+    .testi{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:1.4rem;text-align:left;position:relative;overflow:hidden}
+    .testi::after{content:'"';position:absolute;top:-.8rem;right:.9rem;font-family:'Lora',serif;font-size:5.5rem;color:rgba(201,169,110,0.07);line-height:1;pointer-events:none}
+    .testi-stars{color:var(--gold);font-size:.82rem;margin-bottom:.6rem;letter-spacing:.08em}
+    .testi-text{font-size:.87rem;color:var(--muted);line-height:1.7;margin-bottom:.9rem}
+    .testi-name{font-size:.79rem;font-weight:700;color:var(--text)}
+    .testi-role{font-size:.73rem;color:var(--muted)}
+
+    /* ─ URGENCY ─ */
+    #urgency{padding:5rem 1.6rem;text-align:center;background:var(--bg2)}
+    #urgency h2{font-family:'Lora',serif;font-size:clamp(1.8rem,6vw,2.8rem);font-weight:700;color:#fff;line-height:1.2;margin-bottom:1.4rem}
+    #urgency h2 em{color:var(--gold);font-style:italic}
+    .uverse{font-family:'Lora',serif;font-style:italic;font-size:.95rem;color:var(--gold2);border-left:3px solid var(--gold);padding-left:1rem;text-align:left;max-width:400px;margin:0 auto 1.6rem;line-height:1.65}
+    .uverse cite{display:block;font-style:normal;font-family:'DM Sans',sans-serif;font-size:.7rem;color:var(--muted);margin-top:.3rem;letter-spacing:.04em}
+    #urgency p{font-size:.9rem;color:var(--muted);line-height:1.7;max-width:400px;margin:0 auto}
+
+    /* ─ CTA ─ */
+    #cta{padding:6rem 1.6rem;text-align:center;position:relative;overflow:hidden}
+    #cta::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 85% 65% at 50% 50%,rgba(123,110,246,0.14) 0%,transparent 70%);pointer-events:none}
+    .cta-cross{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:min(75vw,420px);color:rgba(255,255,255,0.012);font-family:'Lora',serif;pointer-events:none;line-height:1}
+    #cta h2{position:relative;z-index:1;font-family:'Lora',serif;font-size:clamp(1.9rem,7vw,3rem);font-weight:700;color:#fff;line-height:1.15;margin-bottom:.9rem}
+    #cta h2 em{color:var(--gold);font-style:italic}
+    .cta-verse{position:relative;z-index:1;font-family:'Lora',serif;font-style:italic;font-size:.9rem;color:var(--gold);opacity:.8;margin-bottom:.25rem}
+    .cta-ref{position:relative;z-index:1;font-size:.72rem;color:var(--muted);margin-bottom:2.2rem;letter-spacing:.04em}
+    .cta-wrap{position:relative;z-index:1;max-width:360px;margin:0 auto}
+    .btn-cta{display:flex;align-items:center;justify-content:center;gap:.45rem;padding:1.05rem 2rem;border-radius:12px;background:linear-gradient(135deg,var(--purple),var(--blue));color:#fff;font-size:1rem;font-weight:700;text-decoration:none;box-shadow:0 6px 32px rgba(123,110,246,0.5);transition:transform .2s,box-shadow .2s;width:100%}
+    .btn-cta:hover{transform:translateY(-2px);box-shadow:0 10px 40px rgba(123,110,246,0.65)}
+    .cta-note{position:relative;z-index:1;font-size:.78rem;color:var(--muted);margin-top:.85rem}
+
+    /* ─ FOOTER ─ */
+    footer{background:var(--bg);border-top:1px solid var(--border);padding:2rem 1.6rem;text-align:center}
+    .footer-logo{display:inline-flex;align-items:center;gap:.55rem;margin-bottom:.7rem;text-decoration:none}
+    footer p{font-size:.78rem;color:var(--muted)}
+    footer a{color:var(--muted);text-decoration:none}
+
+    /* ─ REVEAL ─ */
+    .reveal{opacity:0;transform:translateY(18px);transition:opacity .6s ease,transform .6s ease}
+    .reveal.visible{opacity:1;transform:none}
+
+    /* ─ DESKTOP ─ */
+    @media(min-width:600px){
+      .btn-hero,.btn-cta{width:auto;display:inline-flex}
+      .cta-wrap,.testi-stack{max-width:560px}
+      .benefits-grid{grid-template-columns:repeat(4,1fr);max-width:760px}
+      .lpanels,.ltabs-wrap,.levels-head,#benefits,#hook,#social,#urgency,#cta{padding-left:2rem;padding-right:2rem}
+      .testi-stack{display:grid;grid-template-columns:1fr 1fr}
+      .testi-stack .testi:last-child:nth-child(odd){grid-column:1/-1}
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">
+    <div class="logo-icon">✝</div>
+    <span class="logo-text">GPT <em>Crente</em></span>
+  </a>
+  <a href="https://www.gptcrente.com.br/" target="_blank" class="btn-nav">Testar grátis ✝</a>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-glow"></div>
+  <div class="hero-glow2"></div>
+  <div class="hero-inner">
+    <div class="app-icon">✝</div>
+    <h1>Aproxime-se de Deus.<br><em>Todo dia.</em></h1>
+    <p class="hero-tagline">Estudo bíblico, oração e devocionais — na palma da sua mão, a qualquer hora.</p>
+    <a href="https://www.gptcrente.com.br/" target="_blank" class="btn-hero">✝ Começar — teste grátis</a>
+    <p class="hero-note">Período de teste gratuito · Cancele quando quiser</p>
+    <div class="hero-social">
+      <div class="social-pill">
+        <span class="social-stars">★★★★★</span>
+        <span>4.9 de avaliação</span>
+      </div>
+      <div class="social-divider"></div>
+      <div class="social-pill">✝ +10.000 cristãos</div>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div id="marquee">
+  <div class="mq-track" id="mqTrack"></div>
+</div>
+
+<!-- BENEFIT STRIP -->
+<section id="benefits">
+  <div class="benefits-grid">
+    <div class="benefit-card reveal">
+      <span class="benefit-emoji">📖</span>
+      <h3>Estudo Bíblico</h3>
+      <p>Qualquer passagem, explicada com contexto e profundidade</p>
+    </div>
+    <div class="benefit-card reveal">
+      <span class="benefit-emoji">🙏</span>
+      <h3>Oração</h3>
+      <p>Devocionais e orações personalizadas para o seu momento</p>
+    </div>
+    <div class="benefit-card reveal">
+      <span class="benefit-emoji">🔥</span>
+      <h3>Todo dia</h3>
+      <p>Planos de leitura para criar o hábito que transforma</p>
+    </div>
+    <div class="benefit-card reveal">
+      <span class="benefit-emoji">👶</span>
+      <h3>Modo Kids</h3>
+      <p>Para educar seus filhos na fé, com segurança</p>
+    </div>
+  </div>
+</section>
+
+<!-- HOOK -->
+<section id="hook">
+  <span class="hook-label reveal">Para você</span>
+  <h2 class="reveal">Quando foi a última vez que você <em>entrou fundo</em> na Palavra?</h2>
+  <p class="reveal">A vontade existe. O tempo some. O GPT Crente está aqui para quando você abre a Bíblia e pensa: <strong style="color:var(--text)">"O que isso significa pra minha vida hoje?"</strong></p>
+  <div class="verse-card reveal">
+    <blockquote>"Feliz o homem que encontrou sabedoria,<br>o homem que obteve entendimento."</blockquote>
+    <cite>— Provérbios 3:13</cite>
+  </div>
+</section>
+
+<!-- LEVELS -->
+<section id="levels">
+  <div class="levels-head reveal">
+    <span class="section-label">Para cada caminhada</span>
+    <h2>Do iniciante ao <em>teólogo</em></h2>
+  </div>
+  <div class="ltabs-wrap">
+    <div class="ltabs">
+      <button class="ltab active" data-level="1"><span class="ltab-num">Nível 01</span><span class="ltab-name">Primeiros passos</span></button>
+      <button class="ltab" data-level="2"><span class="ltab-num">Nível 02</span><span class="ltab-name">Perseverando</span></button>
+      <button class="ltab" data-level="3"><span class="ltab-num">Nível 03</span><span class="ltab-name">Estudo profundo</span></button>
+      <button class="ltab ltab-kids" data-level="4"><span class="ltab-num">👶</span><span class="ltab-name">Modo Kids</span></button>
+    </div>
+  </div>
+  <div class="lpanels">
+
+    <div class="lpanel active" data-panel="1">
+      <div class="lpanel-hero">
+        <div class="lp-emoji">🌱</div>
+        <div class="lp-text">
+          <h3>Você está chegando agora — e tudo bem.</h3>
+          <p>Sem julgamento. O GPT Crente te recebe onde você está.</p>
+        </div>
+      </div>
+      <div class="lp-cards">
+        <div class="lp-card">
+          <div class="lp-card-icon">🙋</div>
+          <h4>Perguntas sem vergonha</h4>
+          <p>"Quem é Jesus?", "Por onde começo a ler?"</p>
+          <p class="lp-verse">"Pedi e recebereis." — Mt 7:7</p>
+        </div>
+        <div class="lp-card">
+          <div class="lp-card-icon">🕊️</div>
+          <h4>Sua primeira oração</h4>
+          <p>Encontre as palavras que você ainda não tem.</p>
+          <p class="lp-verse">"Aproximai-vos de Deus." — Tg 4:8</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="lpanel" data-panel="2">
+      <div class="lpanel-hero">
+        <div class="lp-emoji">🔥</div>
+        <div class="lp-text">
+          <h3>Você crê. Agora quer crescer.</h3>
+          <p>Fé emocional vira inabalável quando você busca Deus todo dia.</p>
+        </div>
+      </div>
+      <div class="lp-cards">
+        <div class="lp-card">
+          <div class="lp-card-icon">📅</div>
+          <h4>Hábito que transforma</h4>
+          <p>Planos de leitura que você realmente termina.</p>
+          <p class="lp-verse">"A fé vem pelo ouvir." — Rm 10:17</p>
+        </div>
+        <div class="lp-card">
+          <div class="lp-card-icon">💬</div>
+          <h4>Para o que você vive agora</h4>
+          <p>Ansiedade, perdão, propósito — a Escritura fala sobre tudo.</p>
+          <p class="lp-verse">"Lança sobre o Senhor o teu fardo." — Sl 55:22</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="lpanel" data-panel="3">
+      <div class="lpanel-hero">
+        <div class="lp-emoji">📚</div>
+        <div class="lp-text">
+          <h3>Você quer o que a maioria evita.</h3>
+          <p>Predestinação, expiação, hermenêutica. Fundamento real.</p>
+        </div>
+      </div>
+      <div class="lp-cards">
+        <div class="lp-card">
+          <div class="lp-card-icon">🏛️</div>
+          <h4>Teologia com seriedade</h4>
+          <p>Doutrina da graça, escatologia — com rigor bíblico.</p>
+          <p class="lp-verse">"Toda Escritura é inspirada." — 2Tm 3:16</p>
+        </div>
+        <div class="lp-card">
+          <div class="lp-card-icon">🔍</div>
+          <h4>Contexto que abre a Palavra</h4>
+          <p>Grego, hebraico, referências cruzadas.</p>
+          <p class="lp-verse">"Examina as Escrituras." — Jo 5:39</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="lpanel" data-panel="4">
+      <div class="lpanel-hero kids-bg">
+        <div class="lp-emoji">🌈</div>
+        <div class="lp-text">
+          <h3>A maior herança não cabe em conta bancária.</h3>
+          <p>Ela cabe na alma de um filho que conhece a Palavra.</p>
+        </div>
+      </div>
+      <div class="lp-cards">
+        <div class="lp-card kids">
+          <div class="lp-card-icon">📖</div>
+          <h4>Histórias que encantam</h4>
+          <p>Davi, Jonas, os discípulos — na linguagem da criança.</p>
+          <p class="lp-verse">"Instrui o jovem no caminho." — Pv 22:6</p>
+        </div>
+        <div class="lp-card kids">
+          <div class="lp-card-icon">🛡️</div>
+          <h4>Seguro e sem distrações</h4>
+          <p>Sem anúncios. Sem conteúdo impróprio. Só a Palavra.</p>
+          <p class="lp-verse">"Deixai as crianças virem a mim." — Mt 19:14</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- SOCIAL PROOF -->
+<section id="social">
+  <h2 class="reveal">Vidas tocadas<br>pela <em>Palavra</em></h2>
+  <div class="stats-row reveal">
+    <div class="stat-item">
+      <div class="stat-num">★ 4.9</div>
+      <div class="stat-label">Avaliação média</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">+10k</div>
+      <div class="stat-label">Cristãos ativos</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">∞</div>
+      <div class="stat-label">Versículos estudados</div>
+    </div>
+  </div>
+  <div class="testi-stack">
+    <div class="testi reveal">
+      <div class="testi-stars">★★★★★</div>
+      <p class="testi-text">"Usei para preparar meu estudo de quarta. É como ter um bibliotecário teológico no bolso."</p>
+      <div class="testi-name">Pastor Rodrigo M.</div>
+      <div class="testi-role">São Paulo, SP</div>
+    </div>
+    <div class="testi reveal">
+      <div class="testi-stars">★★★★★</div>
+      <p class="testi-text">"Acordei às 3h sem paz. Conversei com o GPT Crente, ele me direcionou à Palavra e eu orei. Me ajudou demais."</p>
+      <div class="testi-name">Fernanda C.</div>
+      <div class="testi-role">Porto Alegre, RS</div>
+    </div>
+    <div class="testi reveal">
+      <div class="testi-stars">★★★★★</div>
+      <p class="testi-text">"Estava afastado há anos. Perguntei 'Deus me aceita?' A resposta me fez chorar. Estou voltando à Igreja."</p>
+      <div class="testi-name">Marcos T.</div>
+      <div class="testi-role">Florianópolis, SC</div>
+    </div>
+  </div>
+</section>
+
+<!-- URGENCY -->
+<section id="urgency">
+  <h2 class="reveal">O que falta<br>é você <em>chegar.</em></h2>
+  <div class="uverse reveal">
+    "Hoje, se vocês ouvirem a voz dele, não endureçam o coração."
+    <cite>— Hebreus 4:7</cite>
+  </div>
+  <p class="reveal">Não substitui a Igreja. <strong style="color:var(--text)">Complementa</strong> — com estudo profundo, a qualquer hora, onde você estiver.</p>
+</section>
+
+<!-- CTA -->
+<section id="cta">
+  <div class="cta-cross">✝</div>
+  <h2>Comece hoje.<br>Deus está <em>esperando.</em></h2>
+  <p class="cta-verse">"Aquele que começou a boa obra em vocês há de completá-la."</p>
+  <p class="cta-ref">— Filipenses 1:6</p>
+  <div class="cta-wrap">
+    <a href="https://www.gptcrente.com.br/" target="_blank" class="btn-cta">✝ Começar agora — teste grátis</a>
+    <p class="cta-note">Período de teste gratuito · Cancele quando quiser</p>
+  </div>
+</section>
+
+<footer>
+  <a href="https://www.gptcrente.com.br/" target="_blank" class="footer-logo">
+    <div class="logo-icon" style="width:28px;height:28px;font-size:.85rem">✝</div>
+    <span style="font-size:.92rem;font-weight:700;color:#fff;font-family:'Lora',serif">GPT <em style="font-style:italic;font-weight:500;color:var(--gold)">Crente</em></span>
+  </a>
+  <p>© 2025 GPT Crente · <a href="https://www.gptcrente.com.br/">gptcrente.com.br</a></p>
+</footer>
+
+<script>
+  // Reveal
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('visible'); obs.unobserve(e.target); }});
+  },{threshold:.08,rootMargin:'0px 0px -15px 0px'});
+  document.querySelectorAll('.reveal').forEach((el,i) => {
+    el.style.transitionDelay=(i%3*0.08)+'s'; obs.observe(el);
+  });
+
+  // Tabs
+  document.querySelectorAll('.ltab').forEach(tab => {
+    tab.addEventListener('click', () => {
+      const l = tab.dataset.level;
+      document.querySelectorAll('.ltab').forEach(t=>t.classList.remove('active'));
+      document.querySelectorAll('.lpanel').forEach(p=>p.classList.remove('active'));
+      tab.classList.add('active');
+      document.querySelector(`.lpanel[data-panel="${l}"]`).classList.add('active');
+    });
+  });
+
+  // Marquee
+  const vv=[
+    {t:'A tua palavra é lâmpada que guia os meus passos',r:'Salmos 119:105'},
+    {t:'Posso tudo naquele que me fortalece',r:'Filipenses 4:13'},
+    {t:'O Senhor é meu pastor e nada me faltará',r:'Salmos 23:1'},
+    {t:'Não temas, porque eu sou contigo',r:'Isaías 41:10'},
+    {t:'Buscai primeiro o Reino de Deus',r:'Mateus 6:33'},
+    {t:'A fé é a certeza daquilo que esperamos',r:'Hebreus 11:1'},
+    {t:'Confia no Senhor de todo o teu coração',r:'Provérbios 3:5'},
+    {t:'Sê forte e corajoso',r:'Josué 1:9'},
+  ];
+  const track=document.getElementById('mqTrack');
+  [...vv,...vv].forEach(v=>{
+    const s=document.createElement('span');
+    s.className='mq-item';
+    s.innerHTML=`${v.t} <span class="mq-ref">${v.r}</span>`;
+    track.appendChild(s);
+  });
+</script>
+</body>
+</html>
